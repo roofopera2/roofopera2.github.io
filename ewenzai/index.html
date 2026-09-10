@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>俄文在线翻译-中俄互译工具与使用指南</title>
+<meta name="description" content="俄文在线翻译工具入口与使用指南，介绍中俄互译的常见场景、翻译质量提升方法、输入方式、注意事项和常见问题，帮助你在浏览器中快速完成俄语翻译。">
+<meta name="keywords" content="俄文在线翻译,中俄翻译,俄语翻译,在线翻译工具,俄文翻译中文,中文翻译俄文">
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+<style>
+:root{
+  --ink:#1b2430;
+  --ink-soft:#4a5866;
+  --line:#dfe6ee;
+  --bg:#f5f8fb;
+  --card:#ffffff;
+  --brand:#2b5fa8;
+  --brand-dark:#1d4479;
+  --brand-soft:#e8f0fa;
+  --accent:#c8503a;
+  --accent-soft:#fdeeea;
+  --radius:14px;
+  --shadow:0 6px 22px rgba(27,36,48,.07);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color:var(--ink);
+  background:var(--bg);
+  line-height:1.75;
+  font-size:16px;
+}
+a{color:var(--brand);text-decoration:none;}
+a:hover{color:var(--brand-dark);text-decoration:underline;}
+h1,h2,h3{line-height:1.35;margin:0 0 .6em;}
+p{margin:0 0 1em;}
+ul,ol{margin:0 0 1em;padding-left:1.25em;}
+li{margin-bottom:.4em;}
+
+.wrap{width:min(1160px,94%);margin:0 auto;}
+
+/* 顶栏 */
+.topbar{
+  background:#fff;
+  border-bottom:1px solid var(--line);
+  position:sticky;
+  top:0;
+  z-index:50;
+}
+.topbar-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  padding:12px 0;
+  flex-wrap:wrap;
+}
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:700;
+  font-size:1.14rem;
+  color:var(--ink);
+}
+.logo:hover{text-decoration:none;color:var(--brand-dark);}
+.logo-mark{
+  width:38px;height:38px;
+  border-radius:10px;
+  background:linear-gradient(135deg,var(--brand),#4b86d6);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1rem;
+  letter-spacing:.5px;
+  flex:0 0 auto;
+}
+.logo small{
+  display:block;
+  font-size:.72rem;
+  font-weight:400;
+  color:var(--ink-soft);
+  letter-spacing:.4px;
+}
+.mainnav{display:flex;gap:6px;flex-wrap:wrap;}
+.mainnav a{
+  padding:7px 13px;
+  border-radius:8px;
+  font-size:.93rem;
+  color:var(--ink-soft);
+}
+.mainnav a:hover,.mainnav a.active{
+  background:var(--brand-soft);
+  color:var(--brand-dark);
+  text-decoration:none;
+}
+
+/* 首屏 */
+.hero{
+  background:linear-gradient(160deg,#1d4479 0%,#2b5fa8 55%,#3f7bc9 100%);
+  color:#fff;
+  padding:52px 0 44px;
+}
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  gap:38px;
+  align-items:center;
+}
+.hero h1{
+  font-size:2.05rem;
+  margin-bottom:.5em;
+  letter-spacing:.5px;
+}
+.hero .lead{
+  font-size:1.02rem;
+  color:#dce8f8;
+  max-width:34em;
+}
+.hero-tags{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:18px;
+}
+.hero-tags span{
+  background:rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.28);
+  border-radius:999px;
+  padding:5px 14px;
+  font-size:.85rem;
+}
+.translate-box{
+  background:#fff;
+  border-radius:var(--radius);
+  padding:20px;
+  box-shadow:0 14px 34px rgba(10,30,60,.28);
+  color:var(--ink);
+}
+.translate-box h2{
+  font-size:1.02rem;
+  margin-bottom:12px;
+  color:var(--ink);
+}
+.lang-row{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:10px;
+  font-size:.9rem;
+  color:var(--ink-soft);
+}
+.lang-pill{
+  background:var(--brand-soft);
+  color:var(--brand-dark);
+  border-radius:7px;
+  padding:4px 12px;
+  font-weight:600;
+  font-size:.88rem;
+}
+.swap{color:var(--ink-soft);font-size:1rem;}
+.demo-area{
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:#fafcfe;
+  padding:12px 14px;
+  font-size:.92rem;
+  color:var(--ink-soft);
+  min-height:74px;
+}
+.demo-area strong{color:var(--ink);display:block;margin-bottom:4px;font-size:.86rem;}
+.hero-note{
+  margin-top:12px;
+  font-size:.8rem;
+  color:var(--ink-soft);
+  line-height:1.6;
+}
+
+/* 通用区块 */
+section{padding:46px 0;}
+.section-head{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:16px;
+  border-bottom:2px solid var(--line);
+  padding-bottom:12px;
+  margin-bottom:26px;
+  flex-wrap:wrap;
+}
+.section-head h2{
+  font-size:1.42rem;
+  margin:0;
+}
+.section-head p{
+  margin:0;
+  color:var(--ink-soft);
+  font-size:.9rem;
+}
+
+/* 场景卡片 */
+.scene-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:18px;
+}
+.scene-card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:22px;
+  box-shadow:var(--shadow);
+  transition:transform .18s ease,box-shadow .18s ease;
+}
+.scene-card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 12px 26px rgba(27,36,48,.11);
+}
+.scene-icon{
+  width:42px;height:42px;
+  border-radius:10px;
+  background:var(--brand-soft);
+  color:var(--brand-dark);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;
+  margin-bottom:14px;
+  font-size:1rem;
+}
+.scene-card h3{font-size:1.05rem;margin-bottom:.45em;}
+.scene-card p{font-size:.92rem;color:var(--ink-soft);margin:0;}
+
+/* 指南两栏 */
+.guide-layout{
+  display:grid;
+  grid-template-columns:2fr 1fr;
+  gap:30px;
+  align-items:start;
+}
+.steps{
+  counter-reset:step;
+  list-style:none;
+  padding:0;
+  margin:0;
+}
+.steps li{
+  position:relative;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:18px 20px 18px 62px;
+  margin-bottom:14px;
+  box-shadow:var(--shadow);
+}
+.steps li::before{
+  counter-increment:step;
+  content:counter(step);
+  position:absolute;
+  left:18px;
+  top:18px;
+  width:30px;height:30px;
+  border-radius:50%;
+  background:var(--brand);
+  color:#fff;
+  font-size:.9rem;
+  font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+}
+.steps li h3{font-size:1rem;margin-bottom:.3em;}
+.steps li p{font-size:.92rem;color:var(--ink-soft);margin:0;}
+
+.aside-card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:20px;
+  box-shadow:var(--shadow);
+  margin-bottom:18px;
+}
+.aside-card h3{
+  font-size:1rem;
+  margin-bottom:.6em;
+  padding-bottom:.5em;
+  border-bottom:1px dashed var(--line);
+}
+.aside-card ul{
+  padding-left:1.1em;
+  margin:0;
+  font-size:.9rem;
+  color:var(--ink-soft);
+}
+.tip-box{
+  background:var(--accent-soft);
+  border:1px solid #f3d3cb;
+  border-left:4px solid var(--accent);
+  border-radius:10px;
+  padding:16px 18px;
+  font-size:.9rem;
+  color:#7a3527;
+}
+.tip-box strong{display:block;margin-bottom:.3em;color:#8f3a29;}
+
+/* 质量对照表 */
+.table-wrap{
+  overflow-x:auto;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:620px;
+  font-size:.92rem;
+}
+th,td{
+  text-align:left;
+  padding:13px 16px;
+  border-bottom:1px solid var(--line);
+  vertical-align:top;
+}
+th{
+  background:#eef4fb;
+  color:var(--brand-dark);
+  font-weight:600;
+  white-space:nowrap;
+}
+tbody tr:last-child td{border-bottom:none;}
+tbody tr:nth-child(even){background:#fbfdff;}
+
+/* 分类导航 */
+.cat-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:14px;
+}
+.cat-item{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:16px 18px;
+  box-shadow:var(--shadow);
+}
+.cat-item h3{
+  font-size:.98rem;
+  margin-bottom:.35em;
+  color:var(--brand-dark);
+}
+.cat-item p{
+  margin:0;
+  font-size:.87rem;
+  color:var(--ink-soft);
+}
+
+/* FAQ */
+.faq-list{max-width:900px;}
+.faq-item{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:12px;
+  margin-bottom:12px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+.faq-item summary{
+  cursor:pointer;
+  padding:16px 20px;
+  font-weight:600;
+  font-size:.98rem;
+  list-style:none;
+  position:relative;
+  padding-right:46px;
+}
+.faq-item summary::-webkit-details-marker{display:none;}
+.faq-item summary::after{
+  content:"+";
+  position:absolute;
+  right:20px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:1.2rem;
+  color:var(--brand);
+  font-weight:400;
+}
+.faq-item[open] summary::after{content:"−";}
+.faq-item .faq-body{
+  padding:0 20px 18px;
+  font-size:.92rem;
+  color:var(--ink-soft);
+  border-top:1px dashed var(--line);
+  padding-top:14px;
+}
+
+/* 页脚 */
+footer{
+  background:#17222f;
+  color:#b8c6d6;
+  padding:40px 0 24px;
+  font-size:.9rem;
+}
+.footer-grid{
+  display:grid;
+  grid-template-columns:1.4fr 1fr 1fr;
+  gap:28px;
+  padding-bottom:26px;
+  border-bottom:1px solid #2a3949;
+}
+footer h3{
+  color:#fff;
+  font-size:.98rem;
+  margin-bottom:.7em;
+}
+footer ul{list-style:none;padding:0;margin:0;}
+footer li{margin-bottom:.45em;}
+footer a{color:#b8c6d6;}
+footer a:hover{color:#fff;}
+.footer-bottom{
+  padding-top:18px;
+  font-size:.82rem;
+  color:#7f90a3;
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+/* 响应式 */
+@media (max-width:900px){
+  .hero-grid{grid-template-columns:1fr;}
+  .guide-layout{grid-template-columns:1fr;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+}
+@media (max-width:600px){
+  body{font-size:15px;}
+  .hero{padding:36px 0 32px;}
+  .hero h1{font-size:1.5rem;}
+  section{padding:34px 0;}
+  .section-head h2{font-size:1.2rem;}
+  .footer-grid{grid-template-columns:1fr;}
+  .topbar-inner{padding:10px 0;}
+  .mainnav a{padding:6px 10px;font-size:.88rem;}
+  .steps li{padding:16px 16px 16px 54px;}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="logo" href="#top">
+      <span class="logo-mark">俄译</span>
+      <span>俄文在线翻译
+        <small>中俄互译 · 浏览器即用</small>
+      </span>
+    </a>
+    <nav class="mainnav" aria-label="主导航">
+      <a href="#scenes" class="active">使用场景</a>
+      <a href="#howto">操作步骤</a>
+      <a href="#quality">质量提升</a>
+      <a href="#types">文本类型</a>
+      <a href="#faq">常见问题</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- 首屏 -->
+  <div class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <h1>俄文在线翻译：在浏览器里完成中俄互译</h1>
+        <p class="lead">
+          俄文在线翻译指的是借助网页端翻译工具，把中文与俄语互相转换，无需安装软件。
+          它适合阅读俄语资料、回复俄语消息、核对商品说明、准备出行用语等日常需求。
+          本页整理了常见使用场景、操作方式、让译文更准确的技巧，以及容易踩坑的地方。
+        </p>
+        <div class="hero-tags">
+          <span>中译俄</span>
+          <span>俄译中</span>
+          <span>长文本分段</span>
+          <span>术语统一</span>
+          <span>语序调整</span>
+        </div>
+      </div>
+      <div class="translate-box">
+        <h2>翻译方向示意</h2>
+        <div class="lang-row">
+          <span class="lang-pill">中文</span>
+          <span class="swap">⇄</span>
+          <span class="lang-pill">Русский</span>
+        </div>
+        <div class="demo-area">
+          <strong>原文示例</strong>
+          请把这段说明翻译成俄语，语气正式一些。
+        </div>
+        <div class="demo-area" style="margin-top:10px;">
+          <strong>译文方向</strong>
+          俄语属于屈折语，词形会随格、数、性变化，因此译文常需要调整语序和词尾，而不是逐词对应。
+        </div>
+        <p class="hero-note">
+          提示：不同工具的译文风格差异较大。正式文件、合同、医疗和法律内容建议由具备俄语能力的人员复核后再使用。
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 使用场景 -->
+  <section id="scenes">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>俄文在线翻译的常见使用场景</h2>
+        <p>先判断场景，再决定译文需要多严谨</p>
+      </div>
+      <div class="scene-grid">
+        <article class="scene-card">
+          <div class="scene-icon">读</div>
+          <h3>阅读俄语资料</h3>
+          <p>浏览俄语新闻、产品说明书、论文摘要或论坛帖时，先整段翻译把握大意，再对关键句子单独精译，能明显减少理解偏差。</p>
+        </article>
+        <article class="scene-card">
+          <div class="scene-icon">写</div>
+          <h3>回复俄语消息</h3>
+          <p>把想表达的中文写成短句再翻译，比一次翻译一大段更容易得到通顺的俄语。称呼、敬语和语气词建议单独确认。</p>
+        </article>
+        <article class="scene-card">
+          <div class="scene-icon">购</div>
+          <h3>核对商品与订单</h3>
+          <p>俄语电商页面的规格、尺码、材质和退换条款常含缩写，翻译后要重点核对数字、单位与否定词，避免理解反了。</p>
+        </article>
+        <article class="scene-card">
+          <div class="scene-icon">行</div>
+          <h3>出行与日常沟通</h3>
+          <p>问路、点餐、住宿登记等短句适合提前翻译并截图保存。地名和站名建议同时保留俄语原文，便于现场对照。</p>
+        </article>
+        <article class="scene-card">
+          <div class="scene-icon">学</div>
+          <h3>语言学习辅助</h3>
+          <p>把译文当作参考而非标准答案，对照原文观察词形变化和语序差异，比单纯背译文更有助于掌握俄语表达习惯。</p>
+        </article>
+        <article class="scene-card">
+          <div class="scene-icon">务</div>
+          <h3>商务往来草稿</h3>
+          <p>邮件和报价单可先用在线翻译生成初稿，再核对称谓、金额、日期和公司名称，正式发出前建议由懂俄语的人确认。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 操作步骤 -->
+  <section id="howto" style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>如何用在线工具完成一次俄文翻译</h2>
+        <p>从输入到校对的基本流程</p>
+      </div>
+      <div class="guide-layout">
+        <ol class="steps">
+          <li>
+            <h3>确认翻译方向</h3>
+            <p>先选定“中文→俄语”或“俄语→中文”。方向选错时，工具可能给出看似通顺但完全无关的结果，这是最常见的问题来源。</p>
+          </li>
+          <li>
+            <h3>整理原文再输入</h3>
+            <p>把长句拆成意思完整的短句，补全省略的主语，去掉口语中的重复和口头禅。原文越清晰，译文越稳定。</p>
+          </li>
+          <li>
+            <h3>分段翻译长文本</h3>
+            <p>一次输入几百字以上时，建议按段落分别翻译。整篇粘贴容易让工具丢失上下文，出现前后称呼不一致的情况。</p>
+          </li>
+          <li>
+            <h3>检查专有名词</h3>
+            <p>人名、地名、品牌、机构名常被音译得五花八门。可以保留原文并加括号说明，或统一使用一种译法。</p>
+          </li>
+          <li>
+            <h3>回译验证关键内容</h3>
+            <p>把译文再翻回中文，对比是否与原意一致。数字、日期、否定句和条件句尤其需要这样验证。</p>
+          </li>
+          <li>
+            <h3>按用途决定是否人工复核</h3>
+            <p>日常阅读可以接受机器译文；涉及合同、医疗、法律、签证材料时，应由具备俄语能力的人复核后使用。</p>
+          </li>
+        </ol>
+
+        <aside>
+          <div class="aside-card">
+            <h3>输入小技巧</h3>
+            <ul>
+              <li>中文尽量写完整句，少用省略主语。</li>
+              <li>避免“大概、可能、差不多”等模糊词叠加。</li>
+              <li>数字与单位写清楚，例如“3 件”而非“三件左右”。</li>
+              <li>俄语原文若为全大写，可先转成正常大小写再翻译。</li>
+              <li>含特殊符号的文本先清理，减少识别错误。</li>
+            </ul>
+          </div>
+          <div class="aside-card">
+            <h3>常见输入方式</h3>
+            <ul>
+              <li>键盘直接输入或粘贴文本</li>
+              <li>复制网页、文档中的段落</li>
+              <li>手写或语音输入后再校对</li>
+              <li>拍照识别文字后核对再翻译</li>
+            </ul>
+          </div>
+          <div class="tip-box">
+            <strong>安全提醒</strong>
+            不要在公共翻译工具中输入身份证号、银行卡号、账号密码、未公开的商业合同等敏感信息。确有需要时，应先做脱敏处理。
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- 质量提升 -->
+  <section id="quality">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>让俄文译文更准确的几个要点</h2>
+        <p>理解中俄语言差异，比反复换工具更有效</p>
+      </div>
+
+      <p style="max-width:60em;color:var(--ink-soft);">
+        中文和俄语在语法结构上差别很大。中文依靠语序和虚词表达关系，俄语则通过词尾变化体现格、数、性和时态。
+        因此在线翻译出现“词都对、句子别扭”的情况很常见，这通常不是工具坏了，而是两种语言的表达习惯不同。
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>差异点</th>
+              <th>中文习惯</th>
+              <th>俄语特点</th>
+              <th>对翻译的影响</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>语序</td>
+              <td>主谓宾相对固定</td>
+              <td>语序较灵活，靠词尾表意</td>
+              <td>译文可能调整句子成分顺序</td>
+            </tr>
+            <tr>
+              <td>词形变化</td>
+              <td>词形基本不变</td>
+              <td>名词、形容词随格数性变化</td>
+              <td>同一词在不同位置写法不同</td>
+            </tr>
+            <tr>
+              <td>量词</td>
+              <td>使用“个、件、张”等</td>
+              <td>一般不用量词</td>
+              <td>中文量词常被省略或改写</td>
+            </tr>
+            <tr>
+              <td>否定表达</td>
+              <td>“不”“没”位置灵活</td>
+              <td>否定词与格的使用有规则</td>
+              <td>否定范围容易被译错</td>
+            </tr>
+            <tr>
+              <td>敬语与称呼</td>
+              <td>靠“您”“请”等词</td>
+              <td>有“你/您”区分及性别呼应</td>
+              <td>语气正式程度需单独确认</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="scene-grid" style="margin-top:26px;">
+        <article class="scene-card">
+          <div class="scene-icon">1</div>
+          <h3>先明确用途</h3>
+          <p>只是看懂大意，机器译文通常够用；要发给对方看，就需要检查称呼、语气和礼貌程度是否符合场合。</p>
+        </article>
+        <article class="scene-card">
+          <div class="scene-icon">2</div>
+          <h3>统一术语</h3>
+          <p>同一份材料里，同一个名称应保持同一种译法。可先列出关键词对照表，再逐段翻译，避免前后不一致。</p>
+        </article>
+        <article class="scene-card">
+          <div class="scene-icon">3</div>
+          <h3>控制句子长度</h3>
+          <p>中文长句常含多个分句，直接翻译容易让俄语结构混乱。拆成两句往往比硬凑一句更清楚。</p>
+        </article>
+        <article class="scene-card">
+          <div class="scene-icon">4</div>
+          <h3>保留原文对照</h3>
+          <p>重要内容建议中俄对照保存，方便日后核对。只留译文时，一旦发现疑问就难以追溯原始表述。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 文本类型 -->
+  <section id="types" style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>不同文本类型的翻译建议</h2>
+        <p>难度和风险并不相同</p>
+      </div>
+      <div class="cat-grid">
+        <div class="cat-item">
+          <h3>日常对话短句</h3>
+          <p>难度较低。用词简单、上下文明确，在线翻译通常能给出可用结果，注意人称和礼貌程度即可。</p>
+        </div>
+        <div class="cat-item">
+          <h3>新闻与资讯</h3>
+          <p>难度中等。专有名词和机构简称较多，建议对关键人名地名保留原文，避免只依赖音译。</p>
+        </div>
+        <div class="cat-item">
+          <h3>产品与技术说明</h3>
+          <p>难度中等偏高。术语、型号、单位容易出错，翻译后要逐项核对数字与规格，不要只看句子是否通顺。</p>
+        </div>
+        <div class="cat-item">
+          <h3>商务邮件与报价</h3>
+          <p>难度较高。称呼、语气、金额、日期和条款都可能影响理解，建议生成初稿后由懂俄语的人确认。</p>
+        </div>
+        <div class="cat-item">
+          <h3>合同与法律文本</h3>
+          <p>风险最高。措辞差异可能改变权利义务关系，不宜直接使用机器译文，应由专业翻译人员处理。</p>
+        </div>
+        <div class="cat-item">
+          <h3>文学与诗歌</h3>
+          <p>机器翻译难以还原节奏、修辞和双关。在线工具可用于辅助理解，但无法替代文学翻译创作。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>俄文在线翻译常见问题</h2>
+        <p>使用前值得了解的几点</p>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item" open>
+          <summary>在线翻译的俄文可以直接发给对方吗？</summary>
+          <div class="faq-body">
+            取决于场合。日常寒暄、简单询问一般问题不大；涉及商务、求职、投诉、合同等内容，建议先核对称呼、语气和关键信息，必要时请懂俄语的人过一遍，避免因措辞不当造成误解。
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>为什么同一个中文词，翻译结果每次都不一样？</summary>
+          <div class="faq-body">
+            俄语中很多概念有多个近义词，分别适用于不同语体和搭配。工具会根据上下文选择，而上下文稍有变化，选择就会不同。如果希望结果稳定，可以固定术语表，或把句子写得更完整、更明确。
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>俄语翻译成中文时，长句总是读不通怎么办？</summary>
+          <div class="faq-body">
+            俄语长句常用多层从句，直译成中文容易结构混乱。可以先把原文按标点和连接词拆成小段，逐段翻译后再按中文习惯重新组织顺序，理解效果通常更好。
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>人名和地名应该音译还是保留原文？</summary>
+          <div class="faq-body">
+            用于自己阅读时，音译加原文对照最稳妥；用于正式材料时，应参考通行译法或对方提供的写法。不同工具的音译结果可能不一致，统一使用一种更利于沟通。
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>输入敏感信息会有什么风险？</summary>
+          <div class="faq-body">
+            公共在线翻译服务通常需要把文本传输到服务器处理，无法保证内容不被留存。证件号码、账号密码、未公开的商业资料等，建议先脱敏或改用可控的本地工具处理。
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>怎样才能提高俄文在线翻译的准确度？</summary>
+          <div class="faq-body">
+            可以从三方面入手：把原文写清楚，减少歧义和省略；按段落分批翻译，保留上下文；对关键内容做回译验证。这三步比反复更换工具更能提升实际效果。
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <h3>关于本站</h3>
+        <p style="margin:0;color:#9fb0c2;">
+          本页围绕“俄文在线翻译”整理使用场景、操作流程与注意事项，
+          帮助中文用户在浏览器中更高效地完成中俄互译，并了解机器翻译的适用边界。
+        </p>
+      </div>
+      <div>
+        <h3>内容导航</h3>
+        <ul>
+          <li><a href="#scenes">使用场景</a></li>
+          <li><a href="#howto">操作步骤</a></li>
+          <li><a href="#quality">质量提升</a></li>
+          <li><a href="#types">文本类型</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>使用提醒</h3>
+        <ul>
+          <li>机器译文仅供参考</li>
+          <li>重要文件请人工复核</li>
+          <li>敏感信息请先脱敏</li>
+          <li>专有名词建议保留原文</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>俄文在线翻译 · 中俄互译使用指南</span>
+      <span>内容以实用说明为主，不构成专业翻译或法律意见</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var links = document.querySelectorAll('.mainnav a');
+  var sections = [];
+  links.forEach(function(a){
+    var id = a.getAttribute('href').replace('#','');
+    var el = document.getElementById(id);
+    if(el){ sections.push({link:a, el:el}); }
+  });
+  if(!sections.length) return;
+
+  function onScroll(){
+    var pos = window.scrollY + 120;
+    var current = sections[0];
+    sections.forEach(function(s){
+      if(s.el.offsetTop <= pos){ current = s; }
+    });
+    links.forEach(function(a){ a.classList.remove('active'); });
+    if(current){ current.link.classList.add('active'); }
+  }
+
+  var ticking = false;
+  window.addEventListener('scroll', function(){
+    if(!ticking){
+      window.requestAnimationFrame(function(){
+        onScroll();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, {passive:true});
+
+  onScroll();
+})();
+</script>
+
+</body>
+  </html>
